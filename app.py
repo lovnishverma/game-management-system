@@ -282,7 +282,7 @@ def modify_game(game_id):
             game_to_modify.game_image = request.form['gameImage']
             game_to_modify.game_name = request.form['gameName']
             game_to_modify.game_details = request.form['gameDetails']
-            game_to_modify.team_size = request.form['pdfLink']
+            game_to_modify.team_size = request.form['teamsize']
 
             db.session.commit()
             flash("Game updated successfully.", 'success')
