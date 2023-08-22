@@ -22,6 +22,10 @@ class User(UserMixin, db.Model):
     membertype = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
+    profile_photo = db.Column(db.String(200))  # Path to profile photo
+    gender = db.Column(db.String(20))
+    user_class = db.Column(db.String(50))
+    mobile_number = db.Column(db.String(20))
 
     def __repr__(self):
         return "<User {}>".format(self.username)
@@ -138,6 +142,19 @@ def register():
                 return redirect(url_for('login'))
 
     return render_template('register.html')
+
+@app.route('/update_profile', methods=['POST'])
+@login_required
+def update_profile():
+    current_user.profile_photo = request.form['profilePhoto']
+    current_user.gender = request.form['gender']
+    current_user.user_class = request.form['userClass']
+    current_user.mobile_number = request.form['mobileNumber']
+
+    db.session.commit()
+    flash("Profile updated successfully.", 'success')
+    return redirect(url_for('profile'))
+
 
 @app.route('/users')
 @login_required

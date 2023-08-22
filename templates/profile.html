@@ -1,0 +1,31 @@
+<!-- profile.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>My Profile</h1>
+    <img src="{{ current_user.profile_photo }}" alt="Profile Photo">
+    <p>Username: {{ current_user.username }}</p>
+    <p>Email: {{ current_user.email }}</p>
+    <form method="post" action="{{ url_for('update_profile') }}">
+        <div class="form-group">
+            <label for="profilePhoto">Profile Photo URL:</label>
+            <input type="text" class="form-control" id="profilePhoto" name="profilePhoto" value="{{ current_user.profile_photo }}">
+        </div>
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <input type="text" class="form-control" id="gender" name="gender" value="{{ current_user.gender }}">
+        </div>
+        <div class="form-group">
+            <label for="userClass">Class:</label>
+            <input type="text" class="form-control" id="userClass" name="userClass" value="{{ current_user.user_class }}">
+        </div>
+        <div class="form-group">
+            <label for="mobileNumber">Mobile Number:</label>
+            <input type="text" class="form-control" id="mobileNumber" name="mobileNumber" value="{{ current_user.mobile_number }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+</div>
+{% endblock %}
