@@ -17,7 +17,7 @@ login_manager.login_view = 'login'
 # User model
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
+    fname = db.Column(db.String(255), nullable=False)
     username = db.Column(db.String(100), unique=True, nullable=False)
     membertype = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -106,7 +106,7 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        name = request.form['name']
+        fname = request.form['fname']
         username = request.form['username']
         membertype = request.form['membertype']
         email = request.form['email']
@@ -122,7 +122,7 @@ def register():
                 flash('Email already exists. Please choose a different email.', 'error')
             else:
                 hashed_password = generate_password_hash(password)
-                new_user = User(name=name, username=username, membertype=membertype, email=email, password=hashed_password)
+                new_user = User(fname=fname, username=username, membertype=membertype, email=email, password=hashed_password)
                 db.session.add(new_user)
                 db.session.commit()
                 flash('Registration successful. You can now log in.', 'success')
