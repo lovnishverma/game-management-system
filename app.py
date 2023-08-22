@@ -36,7 +36,7 @@ class Game(db.Model):
     game_image = db.Column(db.String(200), nullable=False)
     game_name = db.Column(db.String(100), nullable=False)
     game_details = db.Column(db.Text, nullable=False)
-    pdf_link = db.Column(db.String(200), nullable=False)
+    team_size = db.Column(db.Integer, nullable=False)  
 
 class Team(db.Model):
     id = db.Column(db.Integer, primary_key=True)
