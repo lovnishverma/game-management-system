@@ -38,38 +38,59 @@
     </header>
 
 
-    <!-- Section - AI & ML Topics -->
-    <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5">
-                <!-- Row 1 -->
-    {% if games %}
-        <div class="row">
-            {% for game in games %}
-                <div class="col-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card">
-                        <img src="{{ game.game_image }}" alt="{{ game.game_name }}" class="card-img-top" style="height: 200px;">
-                        <div class="card-body"><center>
-                            <h3 class="card-title">{{ game.game_name }}</h3>
-                            <p class="card-text">{{ game.game_details }}</p>
-                            <a href="{{ game.pdf_link }}" target="_blank" class="btn btn-outline-dark mt-auto">View Attachement</a>
-                       </center> </div>
-                    </div>
+    <!-- Section -->
+    <<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5">
+            <!-- Row 1 -->
+            {% if games %}
+                <div class="row">
+                    {% for game in games %}
+                        <div class="col-12 col-md-6 col-lg-4 mb-4">
+                            <div class="card">
+                                <img src="{{ game.game_image }}" alt="{{ game.game_name }}" class="card-img-top" style="height: 200px;">
+                                <div class="card-body">
+                                    <h3 class="card-title">{{ game.game_name }}</h3>
+                                    <p class="card-text">{{ game.game_details }}</p>
+                                    <a href="{{ game.pdf_link }}" target="_blank" class="btn btn-outline-dark mt-auto">View Attachment</a>
+
+                                    {% if current_user.is_authenticated %}
+                                        {% if game.teams %}
+                                            <hr>
+                                            <h5>Teams:</h5>
+                                            <ul>
+                                                {% for team in game.teams %}
+                                                    <li>
+                                                        {{ team.name }}
+                                                        {% if current_user not in team.members %}
+                                                            <form action="{{ url_for('join_team', team_id=team.id) }}" method="post">
+                                                                <button type="submit" class="btn btn-primary btn-sm">Join Team</button>
+                                                            </form>
+                                                        {% else %}
+                                                            (You're a member)
+                                                        {% endif %}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            <p>No teams formed for this game yet.</p>
+                                        {% endif %}
+                                    {% else %}
+                                        <p><a href="{{ url_for('login') }}">Log in</a> to join teams.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+            {% else %}
+                <p>No games available.</p>
+            {% endif %}
         </div>
-    {% else %}
-        <p>No games available.</p>
-    {% endif %}
-                    </div>
-                </div>
-    </section> 
+    </div>
+</section>
 
 <!-- ... (existing code) -->
-
-<li class="nav-item">
-    <a class="nav-link" href="/profile">My Profile</a>
-</li>
 
   <center> {% with messages = get_flashed_messages(with_categories=true) %}
             {% for category, message in messages %}

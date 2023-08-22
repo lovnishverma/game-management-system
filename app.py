@@ -7,7 +7,7 @@ import pytz
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'abc#2023$@sir'  # Replace with a strong random key
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # Database filename
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database1.db'  # Database filename
 
 db = SQLAlchemy(app)
 
@@ -22,7 +22,7 @@ class User(UserMixin, db.Model):
     membertype = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
-    profile_photo = db.Column(db.String(200))  # Path to profile photo
+    profile_photo = db.Column(db.String(200))
     gender = db.Column(db.String(20))
     user_class = db.Column(db.String(50))
     mobile_number = db.Column(db.String(20))
@@ -30,29 +30,32 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return "<User {}>".format(self.username)
 
-      
-# Game model for the database table
-class game(db.Model):
+# Game model
+class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     game_image = db.Column(db.String(200), nullable=False)
     game_name = db.Column(db.String(100), nullable=False)
     game_details = db.Column(db.Text, nullable=False)
     pdf_link = db.Column(db.String(200), nullable=False)
- 
+
 class Team(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     game_id = db.Column(db.Integer, db.ForeignKey('game.id'))
-    game = db.relationship('game', backref='teams')
+    game = db.relationship('Game', backref='teams')
     members = db.relationship('User', secondary='user_team', backref='teams')
 
+# Intermediate table for many-to-many relationship between User and Team
+user_team = db.Table(
+    'user_team',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('team_id', db.Integer, db.ForeignKey('team.id'))
+)
 
-# Load user function required by Flask-Login
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# Create the database tables
 db.create_all()
 
 @app.route('/')
@@ -104,7 +107,7 @@ def dashboard():
     username = current_user.fname  # Get the username of the current user
     
     # Fetch all games from the database
-    games = game.query.all()
+    games = Game.query.all()
 
     return render_template("main.html", games=games, username=username, time_of_day=time_of_day, date=date, time=time, year=year, visitor_count=visitor_count)
 
@@ -158,12 +161,11 @@ def create_team(game_id):
     if game:
         if request.method == 'POST':
             team_name = request.form['team_name']
-            
-            # Create a new team for the selected game and add the current user as a member
+
             new_team = Team(name=team_name, game=game, members=[current_user])
             db.session.add(new_team)
             db.session.commit()
-            
+
             flash('Team created successfully!', 'success')
             return redirect(url_for('dashboard'))
 
@@ -180,14 +182,13 @@ def join_team(team_id):
         if current_user not in team.members:
             team.members.append(current_user)
             db.session.commit()
-            flash(f'Joined team {team.name}!', 'success')
+            flash('Joined team {}!'.format(team.name), 'success')
         else:
             flash('You are already a member of this team.', 'info')
     else:
         flash('Team not found.', 'error')
-    
-    return redirect(url_for('dashboard'))
 
+    return redirect(url_for('dashboard'))
   
 @app.route('/users')
 @login_required
@@ -260,7 +261,7 @@ def add_game():
 @login_required
 def list_games():
     if current_user.is_authenticated and current_user.username == "admin":
-        games = game.query.all()
+        games = Game.query.all()
         return render_template('list_games.html', games=games)
 
     flash("You do not have permission to access the Admin panel.", 'error')
@@ -271,7 +272,7 @@ def list_games():
 @login_required
 def modify_game(game_id):
     if current_user.is_authenticated and current_user.username == "admin":
-        game_to_modify = game.query.get(game_id)
+        game_to_modify = Game.query.get(game_id)
 
         if game_to_modify is None:
             flash("Game not found.", 'error')
@@ -298,7 +299,7 @@ def modify_game(game_id):
 @login_required
 def delete_game(game_id):
     if current_user.is_authenticated and current_user.username == "admin":
-        game_to_delete = game.query.get(game_id)
+        game_to_delete = Game.query.get(game_id)
 
         if game_to_delete is None:
             flash("Game not found.", 'error')
