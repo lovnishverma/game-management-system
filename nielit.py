@@ -190,7 +190,7 @@ def add_game():
             pdf_link = request.form['pdfLink']
 
             # Store the game data in the database
-            new_game = Game(
+            new_game = game(
                 game_image=game_image,
                 game_name=game_name,
                 game_details=game_details,
@@ -221,7 +221,7 @@ def list_games():
 @login_required
 def modify_game(game_id):
     if current_user.is_authenticated and current_user.username == "admin":
-        game = Game.query.get(game_id)
+        game = game.query.get(game_id)
 
         if game is None:
             flash("Game not found.", 'error')
@@ -247,7 +247,7 @@ def modify_game(game_id):
 @login_required
 def delete_game(game_id):
     if current_user.is_authenticated and current_user.username == "admin":
-        game = Game.query.get(game_id)
+        game = game.query.get(game_id)
 
         if game is None:
             flash("Game not found.", 'error')
