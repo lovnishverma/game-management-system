@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title>{{ user.fname }} Profile</title>
     <!-- Add Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -14,7 +14,14 @@
 </head>
 <body>
     <div class="container">
-        <h2>User Profile</h2>
+        <h2>{{ user.fname }} Profile</h2>
+      <center> {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endwith %} </center>
         <form method="POST">
             <div class="form-group">
                 <label for="fname">Full Name</label>
@@ -57,7 +64,7 @@
         </form>
 
         <h2>Change Password</h2>
-        <form method="POST">
+        <form action="/change_password" method="POST">
             <div class="form-group">
                 <label for="currentPassword">Current Password</label>
                 <input type="password" class="form-control" id="currentPassword" name="current_password" required>
@@ -70,7 +77,7 @@
         </form>
 
         <h2>Update Contact Details</h2>
-        <form method="POST">
+        <form action="/update_contact" method="POST">
             <div class="form-group">
                 <label for="newEmail">New Email</label>
                 <input type="email" class="form-control" id="newEmail" name="new_email" value="{{ user.email }}" required>
@@ -81,6 +88,8 @@
             </div>
             <button type="submit" class="btn btn-primary">Update Contact Details</button>
         </form>
+      <a href="/" class="btn btn-primary mt-3">Homepage</a>
+      <a href="{{ url_for('logout') }}" class="btn btn-danger mt-3">Logout</a>
     </div>
     <!-- Add Bootstrap JS (optional, if you need to use Bootstrap components that require JS) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
