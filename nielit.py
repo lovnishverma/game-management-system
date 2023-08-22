@@ -17,6 +17,7 @@ login_manager.login_view = 'login'
 # User model
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    membertype = db.Column(db.String(255), nullable=False)
     username = db.Column(db.String(100), unique=True, nullable=False)
     membertype = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
