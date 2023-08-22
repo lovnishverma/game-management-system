@@ -247,7 +247,7 @@ def modify_game(game_id):
 @login_required
 def delete_game(game_id):
     if current_user.is_authenticated and current_user.username == "admin":
-        game = game.query.get(game_id)
+        game = game.query.get(id)
 
         if game is None:
             flash("Game not found.", 'error')
