@@ -99,7 +99,12 @@
                                                                        {% if member.year %}
                                                                             ({{ member.year }})
                                                                         {% endif %}
+                                                                                                                             {% for team in teams %}
+    <p><a href="{{ url_for('team_chat', team_id=team.id) }}">{{ team.name }} Chat</a></p>
+{% endfor %}
                                                                     </li>
+       
+
                                                                 {% endfor %}
                                                             </ul>
                                                         {% endif %}
