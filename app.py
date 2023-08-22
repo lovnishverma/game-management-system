@@ -38,7 +38,15 @@ class game(db.Model):
     game_name = db.Column(db.String(100), nullable=False)
     game_details = db.Column(db.Text, nullable=False)
     pdf_link = db.Column(db.String(200), nullable=False)
-    
+ 
+class Team(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    game_id = db.Column(db.Integer, db.ForeignKey('game.id'))
+    game = db.relationship('game', backref='teams')
+    members = db.relationship('User', secondary='user_team', backref='teams')
+
+
 # Load user function required by Flask-Login
 @login_manager.user_loader
 def load_user(user_id):
@@ -143,7 +151,44 @@ def register():
 
     return render_template('register.html')
 
+@app.route('/create_team/<int:game_id>', methods=['GET', 'POST'])
+@login_required
+def create_team(game_id):
+    game = Game.query.get(game_id)
+    if game:
+        if request.method == 'POST':
+            team_name = request.form['team_name']
+            
+            # Create a new team for the selected game and add the current user as a member
+            new_team = Team(name=team_name, game=game, members=[current_user])
+            db.session.add(new_team)
+            db.session.commit()
+            
+            flash('Team created successfully!', 'success')
+            return redirect(url_for('dashboard'))
 
+        return render_template('create_team.html', game=game)
+
+    flash('Game not found.', 'error')
+    return redirect(url_for('dashboard'))
+
+@app.route('/join_team/<int:team_id>', methods=['POST'])
+@login_required
+def join_team(team_id):
+    team = Team.query.get(team_id)
+    if team:
+        if current_user not in team.members:
+            team.members.append(current_user)
+            db.session.commit()
+            flash(f'Joined team {team.name}!', 'success')
+        else:
+            flash('You are already a member of this team.', 'info')
+    else:
+        flash('Team not found.', 'error')
+    
+    return redirect(url_for('dashboard'))
+
+  
 @app.route('/users')
 @login_required
 def list_users():
