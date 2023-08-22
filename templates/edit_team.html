@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Team</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Team</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="teamName">Team Name</label>
+                <input type="text" class="form-control" id="teamName" name="teamName" value="{{ team.name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="gameName">Game Name</label>
+                <input type="text" class="form-control" id="gameName" name="gameName" value="{{ team.game.game_name }}" required>
+            </div>
+            <!-- Add more form fields for other team details if needed -->
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+    <!-- Add Bootstrap JS (optional, if you need to use Bootstrap components that require JS) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
