@@ -28,7 +28,7 @@ class User(UserMixin, db.Model):
 
       
 # Game model for the database table
-class game(db.Model):
+class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     game_image = db.Column(db.String(200), nullable=False)
     game_name = db.Column(db.String(100), nullable=False)
@@ -92,7 +92,7 @@ def dashboard():
     username = current_user.fname  # Get the username of the current user
     
     # Fetch all games from the database
-    games = game.query.all()
+    games = Game.query.all()
 
     return render_template("main.html", games=games, username=username, time_of_day=time_of_day, date=date, time=time, year=year, visitor_count=visitor_count)
 
@@ -210,7 +210,7 @@ def add_game():
 @login_required
 def list_games():
     if current_user.is_authenticated and current_user.username == "admin":
-        games = game.query.all()
+        games = Game.query.all()
         return render_template('list_games.html', games=games)
 
     flash("You do not have permission to access the Admin panel.", 'error')
@@ -221,7 +221,7 @@ def list_games():
 @login_required
 def modify_game(game_id):
     if current_user.is_authenticated and current_user.username == "admin":
-        game = game.query.get(game_id)
+        game = Game.query.get(game_id)
 
         if game is None:
             flash("Game not found.", 'error')
@@ -247,7 +247,7 @@ def modify_game(game_id):
 @login_required
 def delete_game(game_id):
     if current_user.is_authenticated and current_user.username == "admin":
-        game = game.query.get(id)
+        game = Game.query.get(id)
 
         if game is None:
             flash("Game not found.", 'error')
