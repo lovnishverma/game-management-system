@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Game</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+       <center> <h1>Add New Game</h1></center>
+        <form action="{{ url_for('add_game') }}" method="post">
+            <div class="form-group">
+                <label for="gameImage"><span style="color: red;">*</span>Game Image URL:</label>
+                <input type="text" class="form-control" id="gameImage" name="gameImage" required>
+            </div>
+
+            <div class="form-group">
+                <label for="gameName"><span style="color: red;">*</span>Game Name:</label>
+                <input type="text" class="form-control" id="gameName" name="gameName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="gameDetails">Game Details:</label>
+                <textarea class="form-control" id="gameDetails" name="gameDetails"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="pdfLink"><span style="color: red;">*</span>PDF Link:</label>
+                <input type="text" class="form-control" id="pdfLink" name="pdfLink" required>
+            </div>
+<center>
+            <button type="submit" class="btn btn-primary">Add Game</button> </center>
+        </form>
+        <a href="{{ url_for('admin_panel') }}" class="btn btn-secondary mt-3">Back to Admin Panel</a>
+  
+          </div>
+
+    <!-- Add Bootstrap JS and jQuery scripts (required for Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
