@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add necessary meta tags and styles -->
+</head>
+<body>
+    <div class="container">
+        <h2>Manage Teams</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Team Name</th>
+                    <th>Game</th>
+                    <th>Members</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team in teams %}
+                    <tr>
+                        <td>{{ team.name }}</td>
+                        <td>{{ team.game.game_name }}</td>
+                        <td>
+                            {% for member in team.members %}
+                                {{ member.fname }}<br>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a href="{{ url_for('edit_team', team_id=team.id) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <form action="{{ url_for('delete_team', team_id=team.id) }}" method="post">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

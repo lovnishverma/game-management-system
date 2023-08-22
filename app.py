@@ -324,6 +324,19 @@ def delete_game(game_id):
             flash("Game deleted successfully.", 'success')
     return redirect(url_for('admin_panel'))
 
+# Add a new route for managing teams
+@app.route('/admin/manage_teams')
+@login_required
+def manage_teams():
+    if current_user.is_authenticated and current_user.username == "admin":
+        # Fetch all teams from the database
+        teams = Team.query.all()
+        return render_template('manage_team.html', teams=teams)
+
+    flash("You do not have permission to access the Admin panel.", 'error')
+    return redirect(url_for('dashboard'))
+
+  
 @app.route('/logout')
 @login_required
 def logout():
