@@ -241,7 +241,7 @@ def add_game():
             pdf_link = request.form['pdfLink']
 
             # Store the game data in the database
-            new_game = game(
+            new_game = Game(
                 game_image=game_image,
                 game_name=game_name,
                 game_details=game_details,
