@@ -78,6 +78,9 @@
                                                             {% endif %}
                                                         {% else %}
                                                             (You're a member)
+                                  <form action="{{ url_for('leave_team', team_id=team.id) }}" method="post">
+                <button type="submit" class="btn btn-danger btn-sm">Leave Team</button>
+            </form>
                                                         {% endif %}
                                                         {% if team.members %}
                                                             <ul>
@@ -99,12 +102,7 @@
                                                                        {% if member.year %}
                                                                             ({{ member.year }})
                                                                         {% endif %}
-                                                                                                                             {% for team in teams %}
-    <p><a href="{{ url_for('team_chat', team_id=team.id) }}">{{ team.name }} Chat</a></p>
-{% endfor %}
                                                                     </li>
-       
-
                                                                 {% endfor %}
                                                             </ul>
                                                         {% endif %}

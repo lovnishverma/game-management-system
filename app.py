@@ -204,6 +204,23 @@ def join_team(team_id):
         flash('Team not found.', 'error')
 
     return redirect(url_for('dashboard'))
+
+@app.route('/leave_team/<int:team_id>', methods=['POST'])
+@login_required
+def leave_team(team_id):
+    team = Team.query.get(team_id)
+    if team:
+        if current_user in team.members:
+            team.members.remove(current_user)
+            db.session.commit()
+            flash('You have left the team.', 'success')
+        else:
+            flash('You are not a member of this team.', 'error')
+    else:
+        flash('Team not found.', 'error')
+
+    return redirect(url_for('dashboard'))
+
   
 @app.route('/users')
 @login_required
