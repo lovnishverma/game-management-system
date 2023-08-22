@@ -26,14 +26,6 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return "<User {}>".format(self.username)
 
-      
-# Game model for the database table
-class Game(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    game_image = db.Column(db.String(200), nullable=False)
-    game_name = db.Column(db.String(100), nullable=False)
-    game_details = db.Column(db.Text, nullable=False)
-    pdf_link = db.Column(db.String(200), nullable=False)
     
 # Load user function required by Flask-Login
 @login_manager.user_loader
@@ -91,10 +83,9 @@ def dashboard():
     visitor_count = get_visitor_count()
     username = current_user.fname  # Get the username of the current user
     
-    # Fetch all games from the database
-    games = Game.query.all()
+  
 
-    return render_template("main.html", games=games, username=username, time_of_day=time_of_day, date=date, time=time, year=year, visitor_count=visitor_count)
+    return render_template("main.html", username=username, time_of_day=time_of_day, date=date, time=time, year=year, visitor_count=visitor_count)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -178,85 +169,6 @@ def admin_panel():
     flash("You do not have permission to access the Admin panel.", 'error')
     return redirect(url_for('dashboard'))
 
-# Admin Panel - Add New Game
-@app.route('/admin/add_game', methods=['GET', 'POST'])
-@login_required
-def add_game():
-    if current_user.is_authenticated and current_user.username == "admin":
-        if request.method == 'POST':
-            game_image = request.form['gameImage']
-            game_name = request.form['gameName']
-            game_details = request.form['gameDetails']
-            pdf_link = request.form['pdfLink']
-
-            # Store the game data in the database
-            new_game = game(
-                game_image=game_image,
-                game_name=game_name,
-                game_details=game_details,
-                pdf_link=pdf_link
-            )
-            db.session.add(new_game)
-            db.session.commit()
-            flash("Game added successfully.", 'success')
-            return redirect(url_for('admin_panel'))
-
-        return render_template('add_game.html')
-
-    flash("You do not have permission to access the Admin panel.", 'error')
-    return redirect(url_for('dashboard'))
-# Admin Panel - List Games
-@app.route('/admin/list_games')
-@login_required
-def list_games():
-    if current_user.is_authenticated and current_user.username == "admin":
-        games = Game.query.all()
-        return render_template('list_games.html', games=games)
-
-    flash("You do not have permission to access the Admin panel.", 'error')
-    return redirect(url_for('dashboard'))
-
-# Admin Panel - Modify Game
-@app.route('/admin/modify_game/<int:game_id>', methods=['GET', 'POST'])
-@login_required
-def modify_game(game_id):
-    if current_user.is_authenticated and current_user.username == "admin":
-        game = Game.query.get(game_id)
-
-        if game is None:
-            flash("Game not found.", 'error')
-            return redirect(url_for('admin_panel'))
-
-        if request.method == 'POST':
-            game.game_image = request.form['gameImage']
-            game.game_name = request.form['gameName']
-            game.game_details = request.form['gameDetails']
-            game.pdf_link = request.form['pdfLink']
-
-            db.session.commit()
-            flash("Game updated successfully.", 'success')
-            return redirect(url_for('admin_panel'))
-
-        return render_template('modify_game.html', game=game)
-
-    flash("You do not have permission to access the Admin panel.", 'error')
-    return redirect(url_for('dashboard'))
-
-# Admin Panel - Delete Game
-@app.route('/admin/delete_game/<int:game_id>', methods=['POST'])
-@login_required
-def delete_game(game_id):
-    if current_user.is_authenticated and current_user.username == "admin":
-        game = Game.query.get(id)
-
-        if game is None:
-            flash("Game not found.", 'error')
-        else:
-            db.session.delete(game)
-            db.session.commit()
-            flash("Game deleted successfully.", 'success')
-
-    return redirect(url_for('admin_panel'))
 
 @app.route('/logout')
 @login_required
