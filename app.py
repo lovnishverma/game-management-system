@@ -221,41 +221,41 @@ def list_games():
 @login_required
 def modify_game(game_id):
     if current_user.is_authenticated and current_user.username == "admin":
-        game = game.query.get(game_id)
+        game_to_modify = game.query.get(game_id)
 
-        if game is None:
+        if game_to_modify is None:
             flash("Game not found.", 'error')
             return redirect(url_for('admin_panel'))
 
         if request.method == 'POST':
-            game.game_image = request.form['gameImage']
-            game.game_name = request.form['gameName']
-            game.game_details = request.form['gameDetails']
-            game.pdf_link = request.form['pdfLink']
+            game_to_modify.game_image = request.form['gameImage']
+            game_to_modify.game_name = request.form['gameName']
+            game_to_modify.game_details = request.form['gameDetails']
+            game_to_modify.pdf_link = request.form['pdfLink']
 
             db.session.commit()
             flash("Game updated successfully.", 'success')
             return redirect(url_for('admin_panel'))
 
-        return render_template('modify_game.html', game=game)
+        return render_template('modify_game.html', game=game_to_modify)
 
     flash("You do not have permission to access the Admin panel.", 'error')
     return redirect(url_for('dashboard'))
+
 
 # Admin Panel - Delete Game
 @app.route('/admin/delete_game/<int:game_id>', methods=['POST'])
 @login_required
 def delete_game(game_id):
     if current_user.is_authenticated and current_user.username == "admin":
-        game = game.query.get(id)
+        game_to_delete = game.query.get(game_id)
 
-        if game is None:
+        if game_to_delete is None:
             flash("Game not found.", 'error')
         else:
-            db.session.delete(game)
+            db.session.delete(game_to_delete)
             db.session.commit()
             flash("Game deleted successfully.", 'success')
-
     return redirect(url_for('admin_panel'))
 
 @app.route('/logout')
