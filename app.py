@@ -143,20 +143,24 @@ def register():
 
     return render_template('register.html')
 
-  # Profile update form
+# Profile update form
 @app.route('/update_profile', methods=['POST'])
 @login_required
 def update_profile():
-    current_user.profile_photo = request.form['profilePhoto']
-    current_user.gender = request.form['gender']
-    current_user.user_class = request.form['userClass']
-    current_user.mobile_number = request.form['mobileNumber']
+    if request.method == 'POST':
+        current_user.profile_photo = request.form['profilePhoto']
+        current_user.gender = request.form['gender']
+        current_user.user_class = request.form['userClass']
+        current_user.mobile_number = request.form['mobileNumber']
 
-    db.session.commit()
-    flash("Profile updated successfully.", 'success')
-    
-    # Redirect to the user's main page (change 'dashboard' to the actual endpoint)
-    return redirect(url_for('dashboard'))
+        db.session.commit()
+        flash("Profile updated successfully.", 'success')
+        return redirect(url_for('profile'))  # Redirect back to the profile page
+
+    # If the request method is not POST, you can redirect or render an error page
+    flash("Invalid request method.", 'error')
+    return redirect(url_for('dashboard'))  # Redirect to the dashboard
+
 
 
 
