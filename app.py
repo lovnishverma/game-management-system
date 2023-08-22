@@ -143,6 +143,11 @@ def register():
 
     return render_template('register.html')
 
+  
+@app.route('/profile')
+@login_required
+        return render_template('profile.html')
+      
 # Profile update form
 @app.route('/update_profile', methods=['POST'])
 @login_required
