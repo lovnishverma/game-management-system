@@ -324,7 +324,6 @@ def delete_game(game_id):
             flash("Game deleted successfully.", 'success')
     return redirect(url_for('admin_panel'))
 
-# Add a new route for managing teams
 @app.route('/admin/manage_teams')
 @login_required
 def manage_teams():
@@ -332,6 +331,49 @@ def manage_teams():
         # Fetch all teams from the database
         teams = Team.query.all()
         return render_template('manage_team.html', teams=teams)
+
+    flash("You do not have permission to access the Admin panel.", 'error')
+    return redirect(url_for('dashboard'))
+
+@app.route('/admin/edit_team/<int:team_id>', methods=['GET', 'POST'])
+@login_required
+def edit_team(team_id):
+    # Fetch the team by its ID from the database
+    team = Team.query.get(team_id)
+    if not team:
+        flash("Team not found.", 'error')
+        return redirect(url_for('manage_teams'))
+
+    if current_user.is_authenticated and current_user.username == "admin":
+        if request.method == 'POST':
+            # Handle updating team details here
+            flash("Team details updated successfully.", 'success')
+            return redirect(url_for('manage_teams'))
+
+        return render_template('edit_team.html', team=team)
+
+    flash("You do not have permission to access the Admin panel.", 'error')
+    return redirect(url_for('dashboard'))
+
+
+@app.route('/admin/edit_team/<int:team_id>', methods=['GET', 'POST'])
+@login_required
+def edit_team(team_id):
+    # Fetch the team by its ID from the database
+    team = Team.query.get(team_id)
+    if not team:
+        flash("Team not found.", 'error')
+        return redirect(url_for('manage_teams'))
+
+    if current_user.is_authenticated and current_user.username == "admin":
+        if request.method == 'POST':
+            # Update the team details here (form handling)
+            team.name = request.form['new_name']  # Example: Update team name
+            db.session.commit()
+            flash("Team details updated successfully.", 'success')
+            return redirect(url_for('manage_teams'))
+
+        return render_template('edit_team.html', team=team)
 
     flash("You do not have permission to access the Admin panel.", 'error')
     return redirect(url_for('dashboard'))
