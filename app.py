@@ -415,8 +415,6 @@ def profile():
         # Update profile information in the database based on the form data
         current_user.fname = request.form['fname']
         current_user.username = request.form['username']
-        current_user.email = request.form['email']
-        current_user.mobile_number = request.form['mobile_number']
         current_user.gender = request.form['gender']
         current_user.user_class = request.form['user_class']
         current_user.year = request.form['year']

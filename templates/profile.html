@@ -1,22 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Add necessary meta tags and styles -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h2>User Profile</h2>
-        <form method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="profilePicture">Profile Picture</label>
-                <input type="file" class="form-control-file" id="profilePicture" name="profilePicture">
-            </div>
+        <form method="POST">
             <div class="form-group">
                 <label for="fname">Full Name</label>
                 <input type="text" class="form-control" id="fname" name="fname" value="{{ user.fname }}" required>
             </div>
-            <!-- Include other profile fields here -->
-            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="form-control" id="gender" name="gender">
+                  <option value="{{ user.gender }}"> {{ user.gender }}</option>
+                    <option value="Male" {% if user.gender == 'Male' %}selected{% endif %}>Male</option>
+                    <option value="Female" {% if user.gender == 'Female' %}selected{% endif %}>Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="userClass">User Class</label>
+          <select type="select" class="form-control" id="userClass" name="user_class" required>
+                    <option value="{{ user.user_class }}"> {{ user.user_class }}</option>
+                    <option value="BCA"> BCA</option>
+                    <option value="BSc"> BSc</option>
+                  <option value="PGDCA"> PGDCA</option>
+                  <option value="Faculty"> Faculty</option>
+                  <option value="Others"> Others</option>
+                </select> 
+          </div>
+            <div class="form-group">
+                <label for="year">Year</label>
+              <select type="select" class="form-control" id="year" name="year" required>
+                    <option value="{{ user.year }}"> {{ user.year }}</option>
+                    <option value="SEM 1"> SEM 1</option>
+                    <option value="SEM 3"> SEM 3</option>
+                  <option value="Faculty"> Faculty</option>
+                  <option value="Others"> Others</option>
+                   </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Profile</button>
         </form>
 
         <h2>Change Password</h2>
@@ -45,54 +82,9 @@
             <button type="submit" class="btn btn-primary">Update Contact Details</button>
         </form>
     </div>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Add necessary meta tags and styles -->
-</head>
-<body>
-    <div class="container">
-        <h2>User Profile</h2>
-        <form method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="profilePicture">Profile Picture</label>
-                <input type="file" class="form-control-file" id="profilePicture" name="profilePicture">
-            </div>
-            <div class="form-group">
-                <label for="fname">Full Name</label>
-                <input type="text" class="form-control" id="fname" name="fname" value="{{ user.fname }}" required>
-            </div>
-            <!-- Include other profile fields here -->
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-        </form>
-
-        <h2>Change Password</h2>
-        <form method="POST">
-            <div class="form-group">
-                <label for="currentPassword">Current Password</label>
-                <input type="password" class="form-control" id="currentPassword" name="current_password" required>
-            </div>
-            <div class="form-group">
-                <label for="newPassword">New Password</label>
-                <input type="password" class="form-control" id="newPassword" name="new_password" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Change Password</button>
-        </form>
-
-        <h2>Update Contact Details</h2>
-        <form method="POST">
-            <div class="form-group">
-                <label for="newEmail">New Email</label>
-                <input type="email" class="form-control" id="newEmail" name="new_email" value="{{ user.email }}" required>
-            </div>
-            <div class="form-group">
-                <label for="newMobileNumber">New Mobile Number</label>
-                <input type="text" class="form-control" id="newMobileNumber" name="new_mobile_number" value="{{ user.mobile_number }}" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Update Contact Details</button>
-        </form>
-    </div>
+    <!-- Add Bootstrap JS (optional, if you need to use Bootstrap components that require JS) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
