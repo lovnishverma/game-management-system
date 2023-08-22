@@ -210,7 +210,7 @@ def add_game():
 @login_required
 def list_games():
     if current_user.is_authenticated and current_user.username == "admin":
-        games = Game.query.all()
+        games = game.query.all()
         return render_template('list_games.html', games=games)
 
     flash("You do not have permission to access the Admin panel.", 'error')

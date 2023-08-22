@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List of Topics</title>
+    <title>List of Games</title>
     <!-- Add Bootstrap CSS link -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -20,18 +20,18 @@
 </head>
 <body>
     <div class="container mt-4">
-        <h1>List of Topics</h1>
+        <h1>List of Games</h1>
         <ul class="list-group">
-            {% for topic in topics %}
+            {% for game in games %}
             <li class="list-group-item">
-                <strong>Topic Name:</strong> {{ topic.topic_name }}<br>
-                <strong>Topic Details:</strong> {{ topic.topic_details }}<br>
-                <strong>PDF Link:</strong> <a href="{{ topic.pdf_link }}" target="_blank">{{ topic.pdf_link }}</a><br>
-                <strong>Topic Image:</strong> <img src="{{ topic.topic_image }}" alt="{{ topic.topic_name }}" style="max-width: 200px;">
-                <form class="d-inline" action="{{ url_for('modify_topic', topic_id=topic.id) }}" method="GET">
+                <strong>Game Name:</strong> {{ game.game_name }}<br>
+                <strong>Game Details:</strong> {{ game.game_details }}<br>
+                <strong>PDF Link:</strong> <a href="{{ game.pdf_link }}" target="_blank">{{ game.pdf_link }}</a><br>
+                <strong>Game Image:</strong> <img src="{{ game.game_image }}" alt="{{ game.game_name }}" style="max-width: 200px;">
+                <form class="d-inline" action="{{ url_for('modify_game', game_id=game.id) }}" method="GET">
                     <button type="submit" class="btn btn-primary">Modify</button>
                 </form>
-                <form class="d-inline" action="{{ url_for('delete_topic', topic_id=topic.id) }}" method="POST">
+                <form class="d-inline" action="{{ url_for('delete_game', game_id=game.id) }}" method="POST">
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </li>
