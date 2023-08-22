@@ -37,7 +37,9 @@
                         </td>
                         <td>
                             <a href="{{ url_for('edit_team', team_id=team.id) }}" class="btn btn-primary">Edit Team</a>
-                            <a href="{{ url_for('delete_team', team_id=team.id) }}" class="btn btn-danger">Delete Team</a>
+                          <form action="{{ url_for('delete_team', team_id=team.id) }}" method="POST">
+                                    <button type="submit" class="btn btn-danger">Delete Team </button>
+                                </form>
                         </td>
                     </tr>
                 {% endfor %}

@@ -347,13 +347,24 @@ def edit_team(team_id):
 
     if current_user.is_authenticated and current_user.username == "admin":
         if request.method == 'POST':
-            # Handle updating team details here
+            # Retrieve the form data
+            team_name = request.form['teamName']
+            game_name = request.form['gameName']
+            
+            # Update the team details
+            team.name = team_name
+            team.game.game_name = game_name
+            
+            # Commit changes to the database
+            db.session.commit()
+            
             flash("Team details updated successfully.", 'success')
             return redirect(url_for('manage_teams'))
 
         return render_template('edit_team.html', team=team)
 
     flash("You do not have permission to access the Admin panel.", 'error')
+
     return redirect(url_for('dashboard'))
 
 @app.route('/admin/remove_member/<int:team_id>/<int:user_id>', methods=['POST'])
