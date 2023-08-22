@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import pytz
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'abc#2023$@sir'  # Replace with a strong random key
+app.config['SECRET_KEY'] = 'abc#203$@sir'  # Replace with a strong random key
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database1.db'  # Database filename
 
 db = SQLAlchemy(app)
@@ -238,14 +238,14 @@ def add_game():
             game_image = request.form['gameImage']
             game_name = request.form['gameName']
             game_details = request.form['gameDetails']
-            pdf_link = request.form['pdfLink']
+            team_size = request.form['teamsize']
 
             # Store the game data in the database
             new_game = Game(
                 game_image=game_image,
                 game_name=game_name,
                 game_details=game_details,
-                pdf_link=pdf_link
+                team_size=team_size
             )
             db.session.add(new_game)
             db.session.commit()
@@ -282,7 +282,7 @@ def modify_game(game_id):
             game_to_modify.game_image = request.form['gameImage']
             game_to_modify.game_name = request.form['gameName']
             game_to_modify.game_details = request.form['gameDetails']
-            game_to_modify.pdf_link = request.form['pdfLink']
+            game_to_modify.team_size = request.form['pdfLink']
 
             db.session.commit()
             flash("Game updated successfully.", 'success')

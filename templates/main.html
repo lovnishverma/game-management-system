@@ -52,7 +52,7 @@
                                 <div class="card-body">
                                     <h3 class="card-title">{{ game.game_name }}</h3>
                                     <p class="card-text">{{ game.game_details }}</p>
-                                  <center>  <a href="{{ game.pdf_link }}" target="_blank" class="btn btn-outline-dark mt-auto">View Rules</a> </center>
+                                <p>Team Size: {{ game.team_size }} Persons per team</p>
 
                                     <form method="POST" action="{{ url_for('create_team', game_id=game.id) }}">
                                         <label for="team_name">Team Name:</label>
