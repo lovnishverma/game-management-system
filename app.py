@@ -405,6 +405,59 @@ def delete_team(team_id):
 
     return redirect(url_for('manage_teams'))
 
+
+  
+# Flask Route to View and Edit Profile
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    if request.method == 'POST':
+        # Update profile information in the database based on the form data
+        current_user.fname = request.form['fname']
+        current_user.username = request.form['username']
+        current_user.email = request.form['email']
+        current_user.mobile_number = request.form['mobile_number']
+        current_user.gender = request.form['gender']
+        current_user.user_class = request.form['user_class']
+        current_user.year = request.form['year']
+
+        db.session.commit()
+        flash("Profile information updated successfully.", 'success')
+
+    return render_template('profile.html', user=current_user)
+
+# Flask Route to Change Password
+@app.route('/change_password', methods=['POST'])
+@login_required
+def change_password():
+    current_password = request.form['current_password']
+    new_password = request.form['new_password']
+
+    if check_password_hash(current_user.password, current_password):
+        hashed_new_password = generate_password_hash(new_password)
+        current_user.password = hashed_new_password
+        db.session.commit()
+        flash("Password changed successfully.", 'success')
+    else:
+        flash("Incorrect current password.", 'error')
+
+    return redirect(url_for('profile'))
+
+# Flask Route to Update Contact Details
+@app.route('/update_contact', methods=['POST'])
+@login_required
+def update_contact():
+    new_email = request.form['new_email']
+    new_mobile_number = request.form['new_mobile_number']
+
+    # Update contact details in the database
+    current_user.email = new_email
+    current_user.mobile_number = new_mobile_number
+    db.session.commit()
+
+    flash("Contact details updated successfully.", 'success')
+    return redirect(url_for('profile'))
+
   
 @app.route('/logout')
 @login_required

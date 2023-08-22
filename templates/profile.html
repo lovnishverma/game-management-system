@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add necessary meta tags and styles -->
+</head>
+<body>
+    <div class="container">
+        <h2>User Profile</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="profilePicture">Profile Picture</label>
+                <input type="file" class="form-control-file" id="profilePicture" name="profilePicture">
+            </div>
+            <div class="form-group">
+                <label for="fname">Full Name</label>
+                <input type="text" class="form-control" id="fname" name="fname" value="{{ user.fname }}" required>
+            </div>
+            <!-- Include other profile fields here -->
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+
+        <h2>Change Password</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="currentPassword">Current Password</label>
+                <input type="password" class="form-control" id="currentPassword" name="current_password" required>
+            </div>
+            <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input type="password" class="form-control" id="newPassword" name="new_password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Change Password</button>
+        </form>
+
+        <h2>Update Contact Details</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="newEmail">New Email</label>
+                <input type="email" class="form-control" id="newEmail" name="new_email" value="{{ user.email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="newMobileNumber">New Mobile Number</label>
+                <input type="text" class="form-control" id="newMobileNumber" name="new_mobile_number" value="{{ user.mobile_number }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Contact Details</button>
+        </form>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add necessary meta tags and styles -->
+</head>
+<body>
+    <div class="container">
+        <h2>User Profile</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="profilePicture">Profile Picture</label>
+                <input type="file" class="form-control-file" id="profilePicture" name="profilePicture">
+            </div>
+            <div class="form-group">
+                <label for="fname">Full Name</label>
+                <input type="text" class="form-control" id="fname" name="fname" value="{{ user.fname }}" required>
+            </div>
+            <!-- Include other profile fields here -->
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+
+        <h2>Change Password</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="currentPassword">Current Password</label>
+                <input type="password" class="form-control" id="currentPassword" name="current_password" required>
+            </div>
+            <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input type="password" class="form-control" id="newPassword" name="new_password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Change Password</button>
+        </form>
+
+        <h2>Update Contact Details</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="newEmail">New Email</label>
+                <input type="email" class="form-control" id="newEmail" name="new_email" value="{{ user.email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="newMobileNumber">New Mobile Number</label>
+                <input type="text" class="form-control" id="newMobileNumber" name="new_mobile_number" value="{{ user.mobile_number }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Contact Details</button>
+        </form>
+    </div>
+</body>
+</html>
