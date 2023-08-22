@@ -356,6 +356,43 @@ def edit_team(team_id):
     flash("You do not have permission to access the Admin panel.", 'error')
     return redirect(url_for('dashboard'))
 
+@app.route('/admin/remove_member/<int:team_id>/<int:user_id>', methods=['POST'])
+@login_required
+def remove_member(team_id, user_id):
+    if current_user.is_authenticated and current_user.username == "admin":
+        team = Team.query.get(team_id)
+        user = User.query.get(user_id)
+
+        if team and user:
+            if user in team.members:
+                team.members.remove(user)
+                db.session.commit()
+                flash("Member removed from the team.", 'success')
+            else:
+                flash("Member is not part of this team.", 'error')
+        else:
+            flash("Team or member not found.", 'error')
+
+        return redirect(url_for('manage_teams'))
+
+    flash("You do not have permission to access the Admin panel.", 'error')
+    return redirect(url_for('dashboard'))
+
+@app.route('/admin/delete_team/<int:team_id>', methods=['POST'])
+@login_required
+def delete_team(team_id):
+    if current_user.is_authenticated and current_user.username == "admin":
+        team = Team.query.get(team_id)
+        if team:
+            db.session.delete(team)
+            db.session.commit()
+            flash("Team '{}' has been deleted.".format(team.name), 'success')
+        else:
+            flash("Team not found.", 'error')
+    else:
+        flash("You do not have permission to perform this action.", 'error')
+
+    return redirect(url_for('manage_teams'))
 
   
 @app.route('/logout')
