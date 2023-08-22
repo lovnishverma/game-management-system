@@ -46,7 +46,11 @@
             </div>
           <div class="mb-3">
                 <label for="membertype" class="form-label">You're:</label>
-                <input type="text" id="membertype" name="me" class="form-control" required>
+                <select type="select" placeholder="" id="membertype" name="membertype" class="form-control" required>
+                <option value="" disabled="disabled"> Select Your Type:</option>
+            <option value="Student"> Student</option>
+            <option value="Faculty"> Facaulty</option>
+            </select>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email:</label>
