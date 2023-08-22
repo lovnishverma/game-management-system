@@ -7,7 +7,7 @@ import pytz
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'abc#203$@sir'  # Replace with a strong random key
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database1.db'  # Database filename
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # Database filename
 
 db = SQLAlchemy(app)
 
@@ -136,6 +136,10 @@ def register():
         membertype = request.form['membertype']
         email = request.form['email']
         password = request.form['password']
+        mobile_number = request.form['mobile_number']
+        gender = request.form['gender']
+        user_class = request.form['user_class']
+        year = request.form['year']
 
         user = User.query.filter_by(username=username).first()
 
@@ -147,7 +151,17 @@ def register():
                 flash('Email already exists. Please choose a different email.', 'error')
             else:
                 hashed_password = generate_password_hash(password)
-                new_user = User(fname=fname, username=username, membertype=membertype, email=email, password=hashed_password)
+                new_user = User(
+                    fname=fname,
+                    username=username,
+                    membertype=membertype,
+                    email=email,
+                    password=hashed_password,
+                    mobile_number=mobile_number,
+                    gender=gender,
+                    user_class=user_class,
+                    year=year
+                )
                 db.session.add(new_user)
                 db.session.commit()
                 flash('Registration successful. You can now log in.', 'success')

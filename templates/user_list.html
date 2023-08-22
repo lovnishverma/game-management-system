@@ -6,13 +6,13 @@
     <title>Admin Page</title>
     <!-- Add Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<style>
+    <style>
         /* Additional styles */
         .logo {
             max-width: 150px; /* Adjust the width as needed */
         }
     </style>
-  </head>
+</head>
 <body>
     <div class="container mt-5">
         <center>
@@ -29,14 +29,19 @@
                 {% endfor %}
             {% endwith %}
         </center>
-      <a class="btn btn-warning" href="{{ url_for('admin_panel') }}"> Go Back </a>
+        <a class="btn btn-warning mb-3" href="{{ url_for('admin_panel') }}"> Go Back </a>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Name</th>
                     <th>Username</th>
                     <th>Email</th>
                     <th>Member Type</th>
+                    <th>Mobile Number</th>
+                    <th>Gender</th>
+                    <th>Class</th>
+                    <th>Year</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -44,9 +49,14 @@
                 {% for user in users %}
                     <tr>
                         <td>{{ user.id }}</td>
+                        <td>{{ user.fname }}</td>
                         <td>{{ user.username }}</td>
                         <td>{{ user.email }}</td>
-                      <td>{{ user.membertype }}</td>
+                        <td>{{ user.membertype }}</td>
+                        <td>{{ user.mobile_number }}</td>
+                        <td>{{ user.gender }}</td>
+                        <td>{{ user.user_class }}</td>
+                        <td>{{ user.year }}</td>
                         <td>
                             {% if current_user.username == "admin" and current_user.id != user.id %}
                                 <form method="POST" action="{{ url_for('delete_user', user_id=user.id) }}">
