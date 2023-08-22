@@ -28,19 +28,19 @@
 <body>
     <div class="register-container">
         <!-- NIELIT Logo -->
-      <center>
-        <img class="logo" src="https://cdn.glitch.global/2e4e1fd5-3063-4ad2-9509-f801ce34a838/NIELIT-Preview-removebg-preview.png?v=1689957175488" alt="NIELIT Logo">
-        <h2 class="mb-4">Register</h2>
-      {% with messages = get_flashed_messages(with_categories=true) %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endwith %}
-      </center>
+        <center>
+            <img class="logo" src="https://cdn.glitch.global/2e4e1fd5-3063-4ad2-9509-f801ce34a838/NIELIT-Preview-removebg-preview.png?v=1689957175488" alt="NIELIT Logo">
+            <h2 class="mb-4">Register</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endwith %}
+        </center>
         <form method="POST">
-          <div class="mb-3">
+            <div class="mb-3">
                 <label for="fname" class="form-label">Name:</label>
                 <input type="text" id="fname" name="fname" class="form-control" required>
             </div>
@@ -48,13 +48,13 @@
                 <label for="username" class="form-label">Username:</label>
                 <input type="text" id="username" name="username" class="form-control" required>
             </div>
-          <div class="mb-3">
+            <div class="mb-3">
                 <label for="membertype" class="form-label">You're:</label>
                 <select type="select" id="membertype" name="membertype" class="form-control" required>
-                <option value="" disabled selected> Select Your Type:</option>
-            <option value="Student"> Student</option>
-            <option value="Faculty"> Facaulty</option>
-            </select>
+                    <option value="" disabled selected> Select Your Type:</option>
+                    <option value="Student"> Student</option>
+                    <option value="Faculty"> Faculty</option>
+                </select>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email:</label>
@@ -64,11 +64,32 @@
                 <label for="password" class="form-label">Password:</label>
                 <input type="password" id="password" name="password" class="form-control" required>
             </div>
+            <div class="mb-3">
+                <label for="mobile_number" class="form-label">Mobile Number:</label>
+                <input type="text" id="mobile_number" name="mobile_number" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender:</label>
+                <select type="select" id="gender" name="gender" class="form-control">
+                    <option value="" disabled selected> Select Gender:</option>
+                    <option value="Male"> Male</option>
+                    <option value="Female"> Female</option>
+                    <option value="Other"> Other</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="user_class" class="form-label">Class:</label>
+                <input type="text" id="user_class" name="user_class" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="year" class="form-label">Year:</label>
+                <input type="text" id="year" name="year" class="form-control">
+            </div>
             <center>
-            <button type="submit" class="btn btn-success">Register Now</button>
+                <button type="submit" class="btn btn-success">Register Now</button>
             </center>
         </form>
         <p class="mt-3">Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
-  </div>
+    </div>
 </body>
 </html>

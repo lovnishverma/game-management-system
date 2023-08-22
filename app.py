@@ -22,10 +22,11 @@ class User(UserMixin, db.Model):
     membertype = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
-    profile_photo = db.Column(db.String(200))
+    mobile_number = db.Column(db.String(20))
     gender = db.Column(db.String(20))
     user_class = db.Column(db.String(50))
-    mobile_number = db.Column(db.String(20))
+    year = db.Column(db.String(200))
+    
 
     def __repr__(self):
         return "<User {}>".format(self.username)

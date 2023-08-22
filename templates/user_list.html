@@ -36,6 +36,7 @@
                     <th>ID</th>
                     <th>Username</th>
                     <th>Email</th>
+                    <th>Member Type</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -45,6 +46,7 @@
                         <td>{{ user.id }}</td>
                         <td>{{ user.username }}</td>
                         <td>{{ user.email }}</td>
+                      <td>{{ user.membertype }}</td>
                         <td>
                             {% if current_user.username == "admin" and current_user.id != user.id %}
                                 <form method="POST" action="{{ url_for('delete_user', user_id=user.id) }}">
