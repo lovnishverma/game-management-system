@@ -26,6 +26,15 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return "<User {}>".format(self.username)
 
+      
+# Game model for the database table
+class game(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    game_image = db.Column(db.String(200), nullable=False)
+    game_name = db.Column(db.String(100), nullable=False)
+    game_details = db.Column(db.Text, nullable=False)
+    pdf_link = db.Column(db.String(200), nullable=False)
+    
 # Load user function required by Flask-Login
 @login_manager.user_loader
 def load_user(user_id):
@@ -80,10 +89,10 @@ def dashboard():
     
     # Get the visitor count
     visitor_count = get_visitor_count()
-    username = current_user.username  # Get the username of the current user
+    username = current_user.fname  # Get the username of the current user
     
     # Fetch all games from the database
-    games = Game.query.all()
+    games = game.query.all()
 
     return render_template("main.html", games=games, username=username, time_of_day=time_of_day, date=date, time=time, year=year, visitor_count=visitor_count)
 
@@ -158,14 +167,6 @@ def delete_user(user_id):
         flash("You do not have permission to perform this action.", 'error')
     return redirect(url_for('list_users'))
 
-
-# Game model for the database table
-class game(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    game_image = db.Column(db.String(200), nullable=False)
-    game_name = db.Column(db.String(100), nullable=False)
-    game_details = db.Column(db.Text, nullable=False)
-    pdf_link = db.Column(db.String(200), nullable=False)
 
 # Admin Panel - Main Page
 @app.route('/admin')
