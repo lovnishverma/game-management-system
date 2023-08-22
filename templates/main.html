@@ -64,6 +64,13 @@
                     </div>
                 </div>
     </section> 
+
+<!-- ... (existing code) -->
+
+<li class="nav-item">
+    <a class="nav-link" href="{{ url_for('update_profile') }}">My Profile</a>
+</li>
+
   <center> {% with messages = get_flashed_messages(with_categories=true) %}
             {% for category, message in messages %}
                 <div class="alert alert-{{ category }}">

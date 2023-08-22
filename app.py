@@ -143,6 +143,7 @@ def register():
 
     return render_template('register.html')
 
+  # Profile update form
 @app.route('/update_profile', methods=['POST'])
 @login_required
 def update_profile():
@@ -153,7 +154,10 @@ def update_profile():
 
     db.session.commit()
     flash("Profile updated successfully.", 'success')
-    return redirect(url_for('profile'))
+    
+    # Redirect to the user's main page (change 'dashboard' to the actual endpoint)
+    return redirect(url_for('dashboard'))
+
 
 
 @app.route('/users')
