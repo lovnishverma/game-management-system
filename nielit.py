@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import pytz
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'ab#1867$@817'  # Replace with a strong random key
+app.config['SECRET_KEY'] = 'abc#2023$@sir'  # Replace with a strong random key
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # Database filename
 
 db = SQLAlchemy(app)
@@ -18,6 +18,7 @@ login_manager.login_view = 'login'
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
+    membertype = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
 
@@ -105,6 +106,7 @@ def login():
 def register():
     if request.method == 'POST':
         username = request.form['username']
+        membertype = request.form['membertype']
         email = request.form['email']
         password = request.form['password']
 
