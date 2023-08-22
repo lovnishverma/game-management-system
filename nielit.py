@@ -82,10 +82,10 @@ def dashboard():
     visitor_count = get_visitor_count()
     username = current_user.username  # Get the username of the current user
     
-    # Fetch all topics from the database
-    topics = Topic.query.all()
+    # Fetch all games from the database
+    games = Game.query.all()
 
-    return render_template("main.html", topics=topics, username=username, time_of_day=time_of_day, date=date, time=time, year=year, visitor_count=visitor_count)
+    return render_template("main.html", games=games, username=username, time_of_day=time_of_day, date=date, time=time, year=year, visitor_count=visitor_count)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -159,12 +159,12 @@ def delete_user(user_id):
     return redirect(url_for('list_users'))
 
 
-# Topic model for the database table
-class Topic(db.Model):
+# Game model for the database table
+class game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    topic_image = db.Column(db.String(200), nullable=False)
-    topic_name = db.Column(db.String(100), nullable=False)
-    topic_details = db.Column(db.Text, nullable=False)
+    game_image = db.Column(db.String(200), nullable=False)
+    game_name = db.Column(db.String(100), nullable=False)
+    game_details = db.Column(db.Text, nullable=False)
     pdf_link = db.Column(db.String(200), nullable=False)
 
 # Admin Panel - Main Page
@@ -177,83 +177,83 @@ def admin_panel():
     flash("You do not have permission to access the Admin panel.", 'error')
     return redirect(url_for('dashboard'))
 
-# Admin Panel - Add New Topic
-@app.route('/admin/add_topic', methods=['GET', 'POST'])
+# Admin Panel - Add New Game
+@app.route('/admin/add_game', methods=['GET', 'POST'])
 @login_required
-def add_topic():
+def add_game():
     if current_user.is_authenticated and current_user.username == "admin":
         if request.method == 'POST':
-            topic_image = request.form['topicImage']
-            topic_name = request.form['topicName']
-            topic_details = request.form['topicDetails']
+            game_image = request.form['gameImage']
+            game_name = request.form['gameName']
+            game_details = request.form['gameDetails']
             pdf_link = request.form['pdfLink']
 
-            # Store the topic data in the database
-            new_topic = Topic(
-                topic_image=topic_image,
-                topic_name=topic_name,
-                topic_details=topic_details,
+            # Store the game data in the database
+            new_game = Game(
+                game_image=game_image,
+                game_name=game_name,
+                game_details=game_details,
                 pdf_link=pdf_link
             )
-            db.session.add(new_topic)
+            db.session.add(new_game)
             db.session.commit()
-            flash("Topic added successfully.", 'success')
+            flash("Game added successfully.", 'success')
             return redirect(url_for('admin_panel'))
 
-        return render_template('add_topic.html')
+        return render_template('add_game.html')
 
     flash("You do not have permission to access the Admin panel.", 'error')
     return redirect(url_for('dashboard'))
-# Admin Panel - List Topics
-@app.route('/admin/list_topics')
+# Admin Panel - List Games
+@app.route('/admin/list_games')
 @login_required
-def list_topics():
+def list_games():
     if current_user.is_authenticated and current_user.username == "admin":
-        topics = Topic.query.all()
-        return render_template('list_topics.html', topics=topics)
+        games = Game.query.all()
+        return render_template('list_games.html', games=games)
 
     flash("You do not have permission to access the Admin panel.", 'error')
     return redirect(url_for('dashboard'))
 
-# Admin Panel - Modify Topic
-@app.route('/admin/modify_topic/<int:topic_id>', methods=['GET', 'POST'])
+# Admin Panel - Modify Game
+@app.route('/admin/modify_game/<int:game_id>', methods=['GET', 'POST'])
 @login_required
-def modify_topic(topic_id):
+def modify_game(game_id):
     if current_user.is_authenticated and current_user.username == "admin":
-        topic = Topic.query.get(topic_id)
+        game = Game.query.get(game_id)
 
-        if topic is None:
-            flash("Topic not found.", 'error')
+        if game is None:
+            flash("Game not found.", 'error')
             return redirect(url_for('admin_panel'))
 
         if request.method == 'POST':
-            topic.topic_image = request.form['topicImage']
-            topic.topic_name = request.form['topicName']
-            topic.topic_details = request.form['topicDetails']
-            topic.pdf_link = request.form['pdfLink']
+            game.game_image = request.form['gameImage']
+            game.game_name = request.form['gameName']
+            game.game_details = request.form['gameDetails']
+            game.pdf_link = request.form['pdfLink']
 
             db.session.commit()
-            flash("Topic updated successfully.", 'success')
+            flash("Game updated successfully.", 'success')
             return redirect(url_for('admin_panel'))
 
-        return render_template('modify_topic.html', topic=topic)
+        return render_template('modify_game.html', game=game)
 
     flash("You do not have permission to access the Admin panel.", 'error')
     return redirect(url_for('dashboard'))
 
-# Admin Panel - Delete Topic
-@app.route('/admin/delete_topic/<int:topic_id>', methods=['POST'])
+# Admin Panel - Delete Game
+@app.route('/admin/delete_game/<int:game_id>', methods=['POST'])
 @login_required
-def delete_topic(topic_id):
+def delete_game(game_id):
     if current_user.is_authenticated and current_user.username == "admin":
-        topic = Topic.query.get(topic_id)
+        game = Game.query.get(game_id)
 
-        if topic is None:
-            flash("Topic not found.", 'error')
+        if game is None:
+            flash("Game not found.", 'error')
         else:
-            db.session.delete(topic)
+            db.session.delete(game)
             db.session.commit()
-            flash("Topic deleted successfully.", 'success')
+            flash("Game deleted successfully.", 'success')
 
     return redirect(url_for('admin_panel'))
 

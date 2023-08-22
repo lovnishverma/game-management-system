@@ -43,23 +43,23 @@
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5">
                 <!-- Row 1 -->
-    {% if topics %}
+    {% if games %}
         <div class="row">
-            {% for topic in topics %}
+            {% for game in games %}
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
                     <div class="card">
-                        <img src="{{ topic.topic_image }}" alt="{{ topic.topic_name }}" class="card-img-top" style="height: 200px;">
+                        <img src="{{ game.game_image }}" alt="{{ game.game_name }}" class="card-img-top" style="height: 200px;">
                         <div class="card-body"><center>
-                            <h3 class="card-title">{{ topic.topic_name }}</h3>
-                            <p class="card-text">{{ topic.topic_details }}</p>
-                            <a href="{{ topic.pdf_link }}" target="_blank" class="btn btn-outline-dark mt-auto">View Attachement</a>
+                            <h3 class="card-title">{{ game.game_name }}</h3>
+                            <p class="card-text">{{ game.game_details }}</p>
+                            <a href="{{ game.pdf_link }}" target="_blank" class="btn btn-outline-dark mt-auto">View Attachement</a>
                        </center> </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
     {% else %}
-        <p>No topics available.</p>
+        <p>No games available.</p>
     {% endif %}
                     </div>
                 </div>
