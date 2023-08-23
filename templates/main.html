@@ -79,7 +79,7 @@
                                                             <ol>
                                                                 {% for member in team.members %}
                                                                     <li>
-                                                                        {{ member.fname }} <br>
+                                                                      <span style="color: green;"> {{ member.fname }}</span><br>
                                                                         {% if member.membertype %}
                                                                             ({{ member.membertype }})
                                                                         {% endif %}
@@ -101,14 +101,14 @@
                                                             {% if current_user not in team.members %}
                                                                 {% if team.members|length < game.team_size %}
                                                                     <form action="{{ url_for('join_team', team_id=team.id) }}" method="post">
-                                                                        <button type="submit" class="btn btn-primary btn-sm">Join Team</button>
-                                                                    </form>
+                                                                      <center>  <button type="submit" class="btn btn-primary btn-sm">Join Team</button>
+                                                        </center>  </form>
                                                                 {% else %}
-                                                                    <p style="color: red;">(Team Full)</p>
+                                                                 <center>  <p style="color: red;">(Team Full)</p></center> 
                                                                 {% endif %}
                                                             {% else %}
                                                                 <form action="{{ url_for('leave_team', team_id=team.id) }}" method="post">
-                                                                    <button type="submit" class="btn btn-danger btn-sm">Leave Team</button>
+                                                                  <center>  <button type="submit" class="btn btn-danger btn-sm">Leave Team</button></center>
                                                                 </form>
                                                             {% endif %}
                                                         </div>
