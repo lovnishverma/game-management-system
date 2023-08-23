@@ -67,11 +67,11 @@
                                             <hr>
                                             <h5>Teams:</h5>
                                             <ol>
-                                                {% for team in game.teams %}
+                                                {% for team in game.teams %} 
                                                     <li>
                                                         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#team-{{ team.id }}" aria-expanded="false" aria-controls="team-{{ team.id }}">
                                                             {{ team.name }}
-                                                        </button>
+                                                        </button><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg>
                                                         <div class="collapse" id="team-{{ team.id }}">
                                                             <ol>
                                                                 {% for member in team.members %}
