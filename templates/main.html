@@ -64,7 +64,7 @@
                                         {% if game.teams %}
                                             <hr>
                                             <h5>Teams:</h5>
-                                            <ul>
+                                            <ol>
                                                 {% for team in game.teams %}
                                                     <li>
                                                         {{ team.name }}
@@ -83,7 +83,7 @@
             </form>
                                                         {% endif %}
                                                         {% if team.members %}
-                                                            <ul>
+                                                            <ol>
                                                                 {% for member in team.members %}
                                                                     <li>
                                                                         {{ member.fname }}
@@ -104,11 +104,11 @@
                                                                         {% endif %}
                                                                     </li>
                                                                 {% endfor %}
-                                                            </ul>
+                          </ol>
                                                         {% endif %}
                                                     </li>
                                                 {% endfor %}
-                                            </ul>
+                          </ol>
                                         {% else %}
                                             <p>No teams formed for this game yet.</p>
                                         {% endif %}
