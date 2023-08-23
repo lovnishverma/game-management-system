@@ -38,8 +38,8 @@
     </header>
 
 
-    <!--  Sports Section Start -->
-  <section class="py-5">
+   <!--  Sports Section Start -->
+<section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5">
             <!-- Row 1 -->
@@ -49,10 +49,12 @@
                         <div class="col-12 col-md-6 col-lg-4 mb-4">
                             <div class="card">
                                 <img src="{{ game.game_image }}" alt="{{ game.game_name }}" class="card-img-top" style="height: 200px;">
-                               <div class="card-body"><center>
-                                    <h3 class="card-title">{{ game.game_name }}</h3>
-                                    <p class="card-text">{{ game.game_details }}</p>
-                                    <p>Team Size: {{ game.team_size }} Persons per team</p></center> 
+                                <div class="card-body">
+                                    <center>
+                                        <h3 class="card-title">{{ game.game_name }}</h3>
+                                        <p class="card-text">{{ game.game_details }}</p>
+                                        <p>Team Size: {{ game.team_size }} Persons per team</p>
+                                    </center>
 
                                     <form method="POST" action="{{ url_for('create_team', game_id=game.id) }}">
                                         <label for="team_name">Team Name:</label> 
@@ -64,25 +66,13 @@
                                         {% if game.teams %}
                                             <hr>
                                             <h5>Teams:</h5>
-                                            <ol>
+                                            <ul>
                                                 {% for team in game.teams %}
                                                     <li>
-                                                        {{ team.name }}
-                                                        {% if current_user not in team.members %}
-                                                            {% if team.members|length < game.team_size %}
-                                                                <form action="{{ url_for('join_team', team_id=team.id) }}" method="post">
-                                                                    <button type="submit" class="btn btn-primary btn-sm">Join Team</button>
-                                                                </form>
-                                                            {% else %}
-                                                                (Team Full)
-                                                            {% endif %}
-                                                        {% else %}
-                                                            (You're a member)
-                                  <form action="{{ url_for('leave_team', team_id=team.id) }}" method="post">
-                <button type="submit" class="btn btn-danger btn-sm">Leave Team</button>
-            </form>
-                                                        {% endif %}
-                                                        {% if team.members %}
+                                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#team-{{ team.id }}" aria-expanded="false" aria-controls="team-{{ team.id }}">
+                                                            {{ team.name }}
+                                                        </button>
+                                                        <div class="collapse" id="team-{{ team.id }}">
                                                             <ol>
                                                                 {% for member in team.members %}
                                                                     <li>
@@ -91,24 +81,37 @@
                                                                             ({{ member.membertype }})
                                                                         {% endif %}
                                                                       
-                                                                      {% if member.gender %}
+                                                                        {% if member.gender %}
                                                                             ({{ member.gender }})
                                                                         {% endif %}
                                                                       
-                                                                       {% if member.user_class %}
+                                                                        {% if member.user_class %}
                                                                             ({{ member.user_class }})
                                                                         {% endif %}
                                                                       
-                                                                       {% if member.year %}
+                                                                        {% if member.year %}
                                                                             ({{ member.year }})
                                                                         {% endif %}
                                                                     </li>
                                                                 {% endfor %}
-                          </ol>
-                                                        {% endif %}
+                                                            </ol>
+                                                            {% if current_user not in team.members %}
+                                                                {% if team.members|length < game.team_size %}
+                                                                    <form action="{{ url_for('join_team', team_id=team.id) }}" method="post">
+                                                                        <button type="submit" class="btn btn-primary btn-sm">Join Team</button>
+                                                                    </form>
+                                                                {% else %}
+                                                                    <p>(Team Full)</p>
+                                                                {% endif %}
+                                                            {% else %}
+                                                                <form action="{{ url_for('leave_team', team_id=team.id) }}" method="post">
+                                                                    <button type="submit" class="btn btn-danger btn-sm">Leave Team</button>
+                                                                </form>
+                                                            {% endif %}
+                                                        </div>
                                                     </li>
                                                 {% endfor %}
-                          </ol>
+                                            </ul>
                                         {% else %}
                                             <p>No teams formed for this game yet.</p>
                                         {% endif %}
@@ -126,9 +129,8 @@
         </div>
     </div>
 </section>
-
-
-  <!--  Sports Section End --><right>
+<!--  Sports Section End -->
+<right>
    <a href="{{ url_for('profile') }}" class="btn btn-primary">My Profile</a>
  </right>
 <!-- ... (existing code) -->
@@ -174,6 +176,10 @@
 
     <!-- Bootstrap core JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Add Bootstrap JS at the end of your HTML to enable collapse functionality -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Core theme JS -->
     <script src="static/js/scripts.js"></script>
 </body>
