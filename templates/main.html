@@ -73,7 +73,7 @@
                                                 {% for team in game.teams %} 
                                                     <li>
                                                         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#team-{{ team.id }}" aria-expanded="false" aria-controls="team-{{ team.id }}">
-                                                          <b>  {{ team.name }} </b>
+                                                          <b style="color: purple;">  {{ team.name }} </b>
                                                         </button>&#10549;
                                                         <div class="collapse" id="team-{{ team.id }}">
                                                             <ol>
@@ -81,7 +81,7 @@
                                                                     <li>
                                                                       <span style="color: green;"><b> {{ member.fname }}</b></span><br>
                                                                         {% if member.membertype %}
-                                                                            ({{ member.membertype }})
+                                                                           <b>({{ member.membertype }})</b> 
                                                                         {% endif %}
                                                                       
                                                                         {% if member.gender %}
