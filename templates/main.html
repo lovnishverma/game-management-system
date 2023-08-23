@@ -7,7 +7,7 @@
     <meta name="author" content="NIELIT Chandigarh" />
     <title>Sports Day -{{ username }} NIELIT ROPAR</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="https://cdn.glitch.global/4f769866-6f21-4086-b242-d7cc676efee4/360_F_373300777_rRKrIx5PbLahr3iVoycRNHKNjEIifREN.jpg?v=1692687063650" />
+    <link rel="icon" type="image/x-icon" href="https://cdn.glitch.global/6ae3f752-2d47-4c56-819d-9cb03d26d220/nielit.webp?v=1690200727579" />
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -35,7 +35,7 @@
       National</p><p style="color: green;">Sports Day </p></h1><h5>
               A Tribute to Indian Athletes
               </h5>
-    <p class="lead fw-normal mb-0 btn btn-dark">Good {{ time_of_day }}, {{ username }}! Explore the exciting world of Games &amp; Fun With NIELIT Ropar</p>
+    <b>Good {{ time_of_day }}, {{ username }}! Explore the exciting world of Games &amp; Fun With NIELIT Ropar</b>
       </div>
         </div>
     </header>
@@ -73,13 +73,13 @@
                                                 {% for team in game.teams %} 
                                                     <li>
                                                         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#team-{{ team.id }}" aria-expanded="false" aria-controls="team-{{ team.id }}">
-                                                            {{ team.name }} 
+                                                          <b>  {{ team.name }} </b>
                                                         </button>&#10549;
                                                         <div class="collapse" id="team-{{ team.id }}">
                                                             <ol>
                                                                 {% for member in team.members %}
                                                                     <li>
-                                                                      <span style="color: green;"> {{ member.fname }}</span><br>
+                                                                      <span style="color: green;"><b> {{ member.fname }}</b></span><br>
                                                                         {% if member.membertype %}
                                                                             ({{ member.membertype }})
                                                                         {% endif %}
@@ -104,7 +104,7 @@
                                                                       <center>  <button type="submit" class="btn btn-primary btn-sm">Join Team</button>
                                                         </center>  </form>
                                                                 {% else %}
-                                                                 <center>  <p style="color: red;">(Team Full)</p></center> 
+                                                                 <center>  <b style="color: red;">(Team Full)</b></center> 
                                                                 {% endif %}
                                                             {% else %}
                                                                 <form action="{{ url_for('leave_team', team_id=team.id) }}" method="post">
