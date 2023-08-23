@@ -66,7 +66,7 @@
                                         {% if game.teams %}
                                             <hr>
                                             <h5>Teams:</h5>
-                                            <ul>
+                                            <ol>
                                                 {% for team in game.teams %}
                                                     <li>
                                                         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#team-{{ team.id }}" aria-expanded="false" aria-controls="team-{{ team.id }}">
@@ -111,7 +111,7 @@
                                                         </div>
                                                     </li>
                                                 {% endfor %}
-                                            </ul>
+                          </ol>
                                         {% else %}
                                             <p>No teams formed for this game yet.</p>
                                         {% endif %}
