@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="NIELIT Chandigarh AIML" />
     <meta name="author" content="NIELIT Chandigarh" />
-    <title>Sports Day - NIELIT CHANDIGARH</title>
+    <title>Sports Day -{{ username }} NIELIT ROPAR</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="https://cdn.glitch.global/4f769866-6f21-4086-b242-d7cc676efee4/360_F_373300777_rRKrIx5PbLahr3iVoycRNHKNjEIifREN.jpg?v=1692687063650" />
     <!-- Bootstrap icons-->
@@ -31,8 +31,11 @@
        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Time: {{time}}</div>
         <div class="container px-4 px-lg-5 my-5 header-content">
             <div class="text-center text-white">
-    <h1 class="display-4 fw-bolder">National Sports Day </h1>
-    <p class="lead fw-normal mb-0 btn btn-dark">Good {{ time_of_day }}, {{ username }}! Explore the exciting world of Games &amp; Fun With NIELIT Chandigarh</p>
+    <h1 class="display-4 fw-bolder"><p style="color: orange;">
+      National</p><p style="color: green;">Sports Day </p></h1><h5>
+              A Tribute to Indian Athletes
+              </h5>
+    <p class="lead fw-normal mb-0 btn btn-dark">Good {{ time_of_day }}, {{ username }}! Explore the exciting world of Games &amp; Fun With NIELIT Ropar</p>
       </div>
         </div>
     </header>
@@ -101,7 +104,7 @@
                                                                         <button type="submit" class="btn btn-primary btn-sm">Join Team</button>
                                                                     </form>
                                                                 {% else %}
-                                                                    <p>(Team Full)</p>
+                                                                    <p style="color: red;">(Team Full)</p>
                                                                 {% endif %}
                                                             {% else %}
                                                                 <form action="{{ url_for('leave_team', team_id=team.id) }}" method="post">
