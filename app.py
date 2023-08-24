@@ -473,6 +473,31 @@ def update_contact():
     flash("Contact details updated successfully.", 'success')
     return redirect(url_for('profile'))
 
+# Admin Panel - User Teams
+@app.route('/admin/user_teams')
+@login_required
+def user_teams():
+    if current_user.is_authenticated and current_user.username == "admin":
+        users = User.query.all()
+
+        user_teams_info = []
+        for user in users:
+            user_info = {
+                'user': user,
+                'joined_teams': [],
+            }
+            for team in user.teams:
+                user_info['joined_teams'].append({
+                    'game_name': team.game.game_name,
+                    'team_name': team.name,
+                })
+            user_teams_info.append(user_info)
+
+        return render_template('user_teams.html', user_teams_info=user_teams_info)
+
+    flash("You do not have permission to access the Admin panel.", 'error')
+    return redirect(url_for('dashboard'))
+
   
 @app.route('/logout')
 @login_required

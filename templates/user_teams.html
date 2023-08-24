@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+{% block content %}
+    <h1>User Teams</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Joined Teams</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user_info in user_teams_info %}
+                <tr>
+                    <td>{{ user_info.user.id }}</td>
+                    <td>{{ user_info.user.username }}</td>
+                    <td>
+                        <ul>
+                            {% for team_info in user_info.joined_teams %}
+                                <li {% if user_info.joined_teams|length > 1 %}style="color: red;"{% else %}style="color: green;"{% endif %}>
+                                    Game: {{ team_info.game_name }}, Team: {{ team_info.team_name }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+</body>
+</html>
