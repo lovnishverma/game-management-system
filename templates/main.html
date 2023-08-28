@@ -12,23 +12,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="static/css/styles.css" rel="stylesheet" />
-      <style>
+     <style>
         /* Additional custom CSS can be added here */
         .btn-custom {
-            padding: 20px 40px;
-            font-size: 24px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-        }
+           background: #ff0000; /* Initial background color */
+    animation: colorTransition 10s infinite;
+  }
 
-        .btn-custom:hover {
-            background-color: #218838;
-            transform: scale(1.05);
-        }
+  @keyframes colorTransition {
+    0%   { background: #ff0000; } /* Red */
+    40%  { background: #00ff00; } /* Green */
+    80%  { background: #0000ff; } /* Blue */
+    100% { background: #ff0000; } /* Red */
+  }
     </style>
 </head>
 <body>
