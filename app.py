@@ -514,46 +514,29 @@ def user_teams():
 @app.route('/donate', methods=['GET', 'POST'])
 def donate():
     if request.method == 'POST':
-        username = request.form['username']  # Get the entered username
-        user = User.query.filter_by(username=username).first()
+        donor_name = request.form['donor_name']
+        donation_amount = float(request.form['donation_amount'])
 
-        if not user:
-            flash('Username not found.', 'error')
+        if donor_name and donation_amount > 0:
+            new_donation = Donation(donor_name=donor_name, amount=donation_amount)  # Changed column name
+            db.session.add(new_donation)
+            db.session.commit()
+            flash('Thank you for your donation!', 'success')
         else:
-            donation_amount = float(request.form['donation_amount'])
-            if donation_amount > 0:
-                user_donation = UserDonation.query.filter_by(user_id=user.id).first()
-                if not user_donation:
-                    user_donation = UserDonation(user_id=user.id, total_donated=0.0)
-                    db.session.add(user_donation)
-
-                user_donation.total_donated += donation_amount
-                new_donation = Donation(user=user, amount=donation_amount)
-                db.session.add(new_donation)
-                db.session.commit()
-                flash('Thank you for your donation!', 'success')
-            else:
-                flash('Donation amount must be greater than 0.', 'error')
+            flash('Please provide a valid donor name and donation amount.', 'error')
 
     return render_template('donate.html')
-
-
-    return redirect(url_for('view_donations'))
-
 
 
 
 @app.route('/view_donations')
 def view_donations():
     all_donations = Donation.query.all()
-    
-    # Reverse the order of donations to display the latest on top
     all_donations.reverse()
-    
-    # Calculate the total amount donated by all users
     total_collected = sum(donation.amount for donation in all_donations)
     
     return render_template("view_donations.html", donations=all_donations, total_collected=total_collected)
+
 
 @app.route('/donation')
 def donation():
