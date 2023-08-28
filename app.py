@@ -14,11 +14,12 @@ db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-class Donationsports(db.Model):
+class Donationsnew(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     donor_name = db.Column(db.String(100), nullable=False)
+    donor_type = db.Column(db.String(100), nullable=False)
     amount = db.Column(db.Float, nullable=False)
-    donation_date = db.Column(db.DateTime, default=datetime.utcnow)
+    donation_date = db.Column(db.DateTime, default=datetime.now(pytz.timezone('Asia/Kolkata')))
 
 class UserDonation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -514,22 +515,22 @@ def user_teams():
 def donate():
     if request.method == 'POST':
         donor_name = request.form['donor_name']
+        donor_type = request.form['donor_type']
         donation_amount = float(request.form['donation_amount'])
 
-        if donor_name and donation_amount > 0:
-            new_donation = Donationsports(donor_name=donor_name, amount=donation_amount)
+        if donor_name and donor_type and donation_amount > 0:
+            new_donation = Donationsnew(donor_name=donor_name, donor_type=donor_type, amount=donation_amount)
             db.session.add(new_donation)
             db.session.commit()
             flash('Thank you for your donation!', 'success')
         else:
-            flash('Please provide a valid donor name and donation amount.', 'error')
+            flash('Please provide valid donor name, donor type, and donation amount.', 'error')
 
-    return redirect('view_donations')
+    return redirect(url_for('view_donations'))
 
 @app.route('/view_donations')
 def view_donations():
-    all_donations = Donationsports.query.order_by(Donationsports.donation_date.desc()).all()
-    # all_donations.reverse()
+    all_donations = Donationsnew.query.order_by(Donationsnew.donation_date.desc()).all()
     total_collected = sum(donation.amount for donation in all_donations)
     
     return render_template("view_donations.html", donations=all_donations, total_collected=total_collected)
