@@ -524,7 +524,7 @@ def donate():
         else:
             flash('Please provide a valid donor name and donation amount.', 'error')
 
-    return render_template('donate.html')
+    return redirect('view_donations')
 
 @app.route('/view_donations')
 def view_donations():
@@ -538,7 +538,7 @@ def view_donations():
 @app.route('/donation')
 def donation():
     return render_template("donate.html")
-  
+
 @app.route('/logout')
 @login_required
 def logout():

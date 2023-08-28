@@ -10,8 +10,10 @@
     </style>
 </head>
 <body>
+  
     <div class="container">
-        <h2 class="mt-4">Your Donations</h2>
+       <h3 class="mt-3">Total Amount Collected: <span class="font-weight-bold">{{ total_collected }} -/only</span></h3>
+        <h2 class="mt-4">Sports day Donations</h2>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -30,8 +32,9 @@
                 {% endfor %}
             </tbody>
         </table>
-        <p class="mt-3">Total Amount Collected: <span class="font-weight-bold">{{ total_collected }} -/only</span></p>
+       <center> <p class="mt-3">ThankYou for your Donation &#128151;</p></center>
     </div>
+<!-- Add this button to your view_donations.html template -->
 
     <!-- Include Bootstrap JS and any necessary JavaScript or additional content here -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
