@@ -27,7 +27,7 @@
             <tbody>
                 {% for donation in donations %}
                     <tr>
-                      <td>{{ donation.id }}</td>
+                      <td class="serial-number"></td>
                         <td>{{ donation.donor_name }}</td>
                       <td>{{ donation.donor_type }}</td>
                         <td>{{ donation.amount }}</td>
@@ -45,5 +45,13 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Include any other necessary scripts -->
+  <!-- JavaScript for auto-incrementing serial number -->
+    <script>
+        // Auto-increment serial number for each row
+        const serialNumbers = document.querySelectorAll('.serial-number');
+        serialNumbers.forEach((serialNumber, index) => {
+            serialNumber.textContent = index + 1;
+        });
+    </script>
 </body>
 </html>
