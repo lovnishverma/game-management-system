@@ -29,6 +29,10 @@
     <div class="form-container">
         <form action="/donate" method="post">
             <h3 class="mb-4">Donate for Sports Day</h3>
+          <div class="form-group">
+                <label for="username">Your Name</label>
+                <input type="text" name="username" class="form-control" required>
+            </div>
             <div class="form-group">
                 <label for="donation_amount">Donation Amount:</label>
                 <input type="number" step="0.01" min="0.01" name="donation_amount" class="form-control" required>
