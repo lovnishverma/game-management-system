@@ -12,26 +12,28 @@
 <body>
     <div class="container">
         <h2 class="mt-4">Your Donations</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Username</th>
-                    <th scope="col">Donation Amount</th>
-                    <th scope="col">Donation Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for donation in donations %}
-                    <tr>
-                        <td>{{ donation.user.fname }}</td>
-                        <td>${{ donation.amount }}</td>
-                        <td>{{ donation.donation_date.strftime('%B %d, %Y %I:%M %p') }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <p class="mt-3">Total Amount Collected: <span class="font-weight-bold">${{ total_collected }}</span></p>
-    </div>
+        <!-- ... -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Donation Amount</th>
+            <th scope="col">Donation Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for donation in donations %}
+            <tr>
+                <td>{{ donation.user.fname }}</td>
+                <td>{{ donation.amount }}</td>
+                <td>{{ donation.donation_date.strftime('%B %d, %Y %I:%M %p %Z') }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p class="mt-3">Total Amount Collected: <span class="font-weight-bold">{{ total_collected }} -/only</span></p>
+<!-- ... -->
+  </div>
 
     <!-- Include Bootstrap JS and any necessary JavaScript or additional content here -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
