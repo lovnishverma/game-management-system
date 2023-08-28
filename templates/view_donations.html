@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Your Donations</title>
+    <title>Sports Day Donations</title>
     <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Include any other necessary CSS or styling links here -->
@@ -13,11 +13,12 @@
   
     <div class="container">
        <h3 class="mt-3">Total Amount Collected: <span class="font-weight-bold">{{ total_collected }} -/only</span></h3>
-        <h2 class="mt-4">Sports day Donations</h2>
+        <h2 class="mt-4">Sports Day Donations</h2>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">Username</th>
+                  <th scope="col">Student / Faculty</th>
                     <th scope="col">Donation Amount</th>
                     <th scope="col">Donation Date</th>
                 </tr>
@@ -26,6 +27,7 @@
                 {% for donation in donations %}
                     <tr>
                         <td>{{ donation.donor_name }}</td>
+                      <td>{{ donation.donor_type }}</td>
                         <td>{{ donation.amount }}</td>
                         <td>{{ donation.donation_date.strftime('%B %d, %Y %I:%M %p %Z') }}</td>
                     </tr>
