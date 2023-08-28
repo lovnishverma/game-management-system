@@ -543,16 +543,12 @@ def donate():
 @login_required
 def view_donations():
     all_donations = Donation.query.all()
-
+    
     # Calculate the total amount donated by all users
     total_collected = sum(donation.amount for donation in all_donations)
-
-    # Convert donation date and time to India time zone
-    india_tz = pytz.timezone('Asia/Kolkata')
-    for donation in all_donations:
-        donation.donation_date = donation.donation_date.astimezone(india_tz)
-
+    
     return render_template("view_donations.html", donations=all_donations, total_collected=total_collected)
+
 
 @app.route('/donation')
 @login_required
