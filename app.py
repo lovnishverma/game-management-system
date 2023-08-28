@@ -21,6 +21,11 @@ class Donation(db.Model):
     amount = db.Column(db.Float, nullable=False)
     donation_date = db.Column(db.DateTime, default=datetime.utcnow)
 
+class UserDonation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    total_donated = db.Column(db.Float, default=0.0, nullable=False)
+
 
 # User model
 class User(UserMixin, db.Model):
@@ -511,10 +516,17 @@ def user_teams():
 def donate():
     # ...
 
+    user_donation = UserDonation.query.filter_by(user_id=current_user.id).first()
+
+    if not user_donation:
+        user_donation = UserDonation(user_id=current_user.id, total_donated=0.0)
+        db.session.add(user_donation)
+        db.session.commit()
+
     if request.method == 'POST':
         donation_amount = float(request.form['donation_amount'])
         if donation_amount > 0:
-            current_user.total_donated += donation_amount
+            user_donation.total_donated += donation_amount
             new_donation = Donation(user=current_user, amount=donation_amount)
             db.session.add(new_donation)
             db.session.commit()
@@ -523,7 +535,16 @@ def donate():
             flash('Donation amount must be greater than 0.', 'error')
 
     # ...
-    return redirect(url_for('dashboard'))
+
+    return redirect(url_for('view_donations'))
+
+@app.route('/view_donations')
+@login_required
+def view_donations():
+    donations = Donation.query.filter_by(user_id=current_user.id).all()
+    total_collected = UserDonation.query.filter_by(user_id=current_user.id).first().total_donated
+
+    return render_template("view_donations.html", donations=donations, total_collected=total_collected)
     
 
 @app.route('/donation')
