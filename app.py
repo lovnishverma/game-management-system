@@ -14,6 +14,14 @@ db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
+class Donation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user = db.relationship('User', backref='donations')
+    amount = db.Column(db.Float, nullable=False)
+    donation_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+
 # User model
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -497,6 +505,31 @@ def user_teams():
 
     flash("You do not have permission to access the Admin panel.", 'error')
     return redirect(url_for('dashboard'))
+
+@app.route('/donate', methods=['GET', 'POST'])
+@login_required
+def donate():
+    # ...
+
+    if request.method == 'POST':
+        donation_amount = float(request.form['donation_amount'])
+        if donation_amount > 0:
+            current_user.total_donated += donation_amount
+            new_donation = Donation(user=current_user, amount=donation_amount)
+            db.session.add(new_donation)
+            db.session.commit()
+            flash('Thank you for your donation!', 'success')
+        else:
+            flash('Donation amount must be greater than 0.', 'error')
+
+    # ...
+    return redirect(url_for('dashboard'))
+    
+
+@app.route('/donation')
+@login_required
+def donation():
+    return render_template("donate.html")
   
 @app.route('/logout')
 @login_required
