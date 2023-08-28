@@ -530,7 +530,7 @@ def donate():
 
 @app.route('/view_donations')
 def view_donations():
-    all_donations = Donationsnew.query.order_by(Donationsnew.donation_date.desc()).all()
+    all_donations = Donationsnew.query.order_by(Donationsnew.amount.desc()).all()
     total_collected = sum(donation.amount for donation in all_donations)
     
     return render_template("view_donations.html", donations=all_donations, total_collected=total_collected)

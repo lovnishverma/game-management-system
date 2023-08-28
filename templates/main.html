@@ -14,9 +14,20 @@
     <link href="static/css/styles.css" rel="stylesheet" />
       <style>
         /* Additional custom CSS can be added here */
-        .btn-large {
-            padding: 15px 30px;
+        .btn-custom {
+            padding: 20px 40px;
             font-size: 24px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .btn-custom:hover {
+            background-color: #218838;
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -43,7 +54,7 @@
         </div>
     </header>
 
- <center><br> <a class="btn-large" href="/donation">Donate</a></center>
+ <center><br> <a class="btn-custom" href="/donation">Donate</a></center>
    <!--  Sports Section Start -->
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">

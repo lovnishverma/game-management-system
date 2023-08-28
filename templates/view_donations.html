@@ -17,6 +17,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                  <th scope="col">Sr. No</th>
                     <th scope="col">Username</th>
                   <th scope="col">Student / Faculty</th>
                     <th scope="col">Donation Amount</th>
@@ -26,6 +27,7 @@
             <tbody>
                 {% for donation in donations %}
                     <tr>
+                      <td>{{ donation.id }}</td>
                         <td>{{ donation.donor_name }}</td>
                       <td>{{ donation.donor_type }}</td>
                         <td>{{ donation.amount }}</td>
