@@ -14,10 +14,9 @@ db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
-class Donation(db.Model):
+class Donationsports(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    user = db.relationship('User', backref='donations')
+    donor_name = db.Column(db.String(100), nullable=False)
     amount = db.Column(db.Float, nullable=False)
     donation_date = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -518,7 +517,7 @@ def donate():
         donation_amount = float(request.form['donation_amount'])
 
         if donor_name and donation_amount > 0:
-            new_donation = Donation(donor_name=donor_name, amount=donation_amount)  # Changed column name
+            new_donation = Donationsports(donor_name=donor_name, amount=donation_amount)
             db.session.add(new_donation)
             db.session.commit()
             flash('Thank you for your donation!', 'success')
@@ -527,12 +526,10 @@ def donate():
 
     return render_template('donate.html')
 
-
-
 @app.route('/view_donations')
 def view_donations():
-    all_donations = Donation.query.all()
-    all_donations.reverse()
+    all_donations = Donationsports.query.order_by(Donationsports.donation_date.desc()).all()
+    # all_donations.reverse()
     total_collected = sum(donation.amount for donation in all_donations)
     
     return render_template("view_donations.html", donations=all_donations, total_collected=total_collected)
