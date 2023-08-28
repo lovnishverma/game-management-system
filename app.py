@@ -540,15 +540,16 @@ def donate():
 
 
 @app.route('/view_donations')
-@login_required
 def view_donations():
     all_donations = Donation.query.all()
+    
+    # Reverse the order of donations to display the latest on top
+    all_donations.reverse()
     
     # Calculate the total amount donated by all users
     total_collected = sum(donation.amount for donation in all_donations)
     
     return render_template("view_donations.html", donations=all_donations, total_collected=total_collected)
-
 
 @app.route('/donation')
 @login_required
