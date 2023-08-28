@@ -535,6 +535,22 @@ def view_donations():
     
     return render_template("view_donations.html", donations=all_donations, total_collected=total_collected)
 
+# @app.route('/update_donor_name')
+# def update_donor_name():
+#     try:
+#         # Find the record to update
+#         donation_to_update = Donationsnew.query.filter_by(donor_name='old name').first()
+        
+#         if donation_to_update:
+#             # Update the donor_name
+#             donation_to_update.donor_name = 'new name'
+#             db.session.commit()
+#             return 'Donor name updated successfully.'
+#         else:
+#             return 'Donation not found with donor name Davinder Gill.'
+#     except Exception as e:
+#         return 'An error occurred: ' + str(e)
+
 
 @app.route('/donation')
 def donation():
