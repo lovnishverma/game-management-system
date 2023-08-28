@@ -24,6 +24,24 @@
             margin-bottom: 20px;
         }
     </style>
+  <style>
+    /* Additional custom CSS can be added here */
+    .btn-custom {
+        padding: 28px 54px; /* Adjust padding for width and height */
+        font-size: 20px; /* Adjust font size */
+        color: white; /* Adjust font color */
+        background: #ff0000; /* Initial background color */
+        border-radius: 15px; /* Add rounded corners */
+        animation: colorTransition 5s infinite;
+    }
+
+    @keyframes colorTransition {
+        0%   { background: #ff0000; } /* Red */
+        40%  { background: #00ff00; } /* Green */
+        80%  { background: #0000ff; } /* Blue */
+        100% { background: #ff0000; } /* Red */
+    }
+</style>
 </head>
 <body>
     <div class="login-container">
@@ -32,7 +50,9 @@
       <center>
         <img class="logo" src="https://cdn.glitch.global/2e4e1fd5-3063-4ad2-9509-f801ce34a838/NIELIT-Preview-removebg-preview.png?v=1689957175488" alt="NIELIT Logo">
         <h2 class="mb-4">Login</h2>
-        <span> <a class="btn btn-success" href="{{ url_for('view_donations') }}">View Donations</a></span>
+         <center><br> <a class="btn-custom" href="{{ url_for('view_donations') }}">View Donations</a></center>
+        <br>
+        <br>
       {% with messages = get_flashed_messages(with_categories=true) %}
             {% for category, message in messages %}
                 <div class="alert alert-{{ category }}">
