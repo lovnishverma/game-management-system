@@ -535,21 +535,35 @@ def view_donations():
     
     return render_template("view_donations.html", donations=all_donations, total_collected=total_collected)
 
-# @app.route('/update_donor_name')
-# def update_donor_name():
-#     try:
-#         # Find the record to update
-#         donation_to_update = Donationsnew.query.filter_by(donor_name='old name').first()
+@app.route('/admin/change_user_team/<int:user_id>', methods=['GET', 'POST'])
+@login_required
+def admin_change_user_team(user_id):
+    if current_user.is_authenticated and current_user.username == "admin":
+        user = User.query.get(user_id)
         
-#         if donation_to_update:
-#             # Update the donor_name
-#             donation_to_update.donor_name = 'new name'
-#             db.session.commit()
-#             return 'Donor name updated successfully.'
-#         else:
-#             return 'Donation not found with donor name Davinder Gill.'
-#     except Exception as e:
-#         return 'An error occurred: ' + str(e)
+        if not user:
+            flash("User not found.", 'error')
+            return redirect(url_for('manage_teams'))  # Redirect to admin's team management page
+        
+        if request.method == 'POST':
+            new_team_id = int(request.form['new_team_id'])
+            new_team = Team.query.get(new_team_id)
+            
+            if not new_team:
+                flash("Team not found.", 'error')
+                return redirect(url_for('admin_change_user_team', user_id=user_id))
+            
+            user.team = new_team
+            db.session.commit()
+            
+            flash("{}'s team has been updated.".format(user.username), 'success')
+            return redirect(url_for('manage_teams'))  # Redirect to admin's team management page
+        
+        teams = Team.query.all()
+        return render_template('admin_change_user_team.html', user=user, teams=teams)
+    
+    flash("You do not have permission to access the Admin panel.", 'error')
+    return redirect(url_for('dashboard'))
 
 
 @app.route('/donation')
