@@ -17,6 +17,7 @@
                 <th>User ID</th>
                 <th>Username</th>
                 <th>Joined Teams</th>
+                <th>Change Team</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +33,16 @@
                                 </li>
                             {% endfor %}
                         </ul>
+                    </td>
+                    <td>
+                        <form method="POST" action="{{ url_for('admin_change_user_team', user_id=user_info.user.id) }}">
+                            <select name="new_team_id">
+                                {% for team in teams %}
+                                    <option value="{{ team.id }}">{{ team.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit" class="btn btn-primary">Change Team</button>
+                        </form>
                     </td>
                 </tr>
             {% endfor %}
