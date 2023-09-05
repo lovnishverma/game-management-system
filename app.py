@@ -503,6 +503,7 @@ def user_teams():
                 user_info['joined_teams'].append({
                     'game_name': team.game.game_name,
                     'team_name': team.name,
+                  
                 })
             user_teams_info.append(user_info)
 

@@ -12,6 +12,18 @@
 {% block content %}
     <h1>User Teams</h1>
         {% for user_info in user_teams_info %}
+                    
+                         {{ user_info.user.id }} ,
+                         {{ user_info.user.fname }} ,
+                         {{ user_info.user.username }} ,
+                         {{ user_info.user.email }} ,
+                         {{ user_info.user.membertype }} ,
+                         {{ user_info.user.mobile_number }} ,
+                         {{ user_info.user.gender }} ,
+                        {{ user_info.user.user_class }},
+                        {{ user_info.user.year }},
+                        
+     
                  {{ user_info.user.id }}, {{ user_info.user.username }},
                             {% for team_info in user_info.joined_teams %}
                                 
