@@ -1,5 +1,8 @@
 # Game Management System
 
+![image](https://github.com/user-attachments/assets/2f5eaad2-f4d8-48e1-9098-ae86e5e07c8c)
+
+
 ## Overview
 This is a Flask-based Game Management System that includes user authentication, game and team management, an admin panel, and profile management.
 
