@@ -22,7 +22,7 @@ This is a Flask-based Game Management System that includes user authentication, 
 ## Installation
 
 ### Prerequisites
-Ensure you have Python installed (Python 3.7+ recommended).
+Ensure you have Python installed (Python 2.7+ recommended).
 
 ### Steps
 1. Clone the repository:
