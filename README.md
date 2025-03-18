@@ -3,6 +3,10 @@
 ## Overview
 This is a Flask-based Game Management System that includes user authentication, game and team management, an admin panel, and profile management.
 
+## Default Admin Credentials
+- **Username:** admin  
+- **Password:** Nielit@Games
+
 ## Live Demo: https://gamemanagementsystem.glitch.me/
 
 ## Features
