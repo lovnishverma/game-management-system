@@ -7,7 +7,7 @@ This is a Flask-based Game Management System that includes user authentication, 
 - **Username:** admin  
 - **Password:** Nielit@Games
 
-## Live Demo: [https://game-management-system.glitch.me/](game-management-system.glitch.me)
+## Live Demo: game-management-system.glitch.me
 
 ## Features
 - User authentication (login, registration, logout)
