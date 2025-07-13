@@ -70,8 +70,6 @@ user_team = db.Table(
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-db.create_all()
-
 @app.route('/')
 @login_required
 def dashboard():
@@ -577,4 +575,6 @@ def logout():
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run()
